@@ -1,6 +1,6 @@
 // KML/KMZ View — vỏ ứng dụng (PWA). Nội dung app luôn lấy trực tiếp từ Apps Script nên KHÔNG lưu đệm ở đây;
 // service worker chỉ giữ vài file vỏ (mở được màn hình chờ khi mất mạng) và nhận file được "Chia sẻ" vào app.
-const VER = 'kxapp-1.3.0';
+const VER = 'kxapp-1.3.1';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './maskable-512.png'];
 const SHARE = 'kxapp-share';
 
