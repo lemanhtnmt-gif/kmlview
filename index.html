@@ -2,160 +2,29 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#ffffff">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="KML View">
-<meta name="description" content="KML/KMZ View — xem ranh giới dự án trên ảnh vệ tinh">
-<link rel="manifest" href="manifest.webmanifest?v=131">
 <link rel="icon" type="image/png" href="icon-192.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<title>KML/KMZ View</title>
+<title>KML/KMZ View đã chuyển địa chỉ</title>
 <style>
-  :root { --ac: #1a73e8; --tx: #202124; --mu: #5f6368; --bg: #ffffff; --ln: #dadce0; }
-  html, body { margin: 0; height: 100%; background: #fff; overflow: hidden; overscroll-behavior: none; }
-  body { font: 15px Roboto, system-ui, -apple-system, "Segoe UI", Arial, sans-serif; color: var(--tx); }
-  /* Galaxy Z Fold: man ngoai (~410 px, giao dien dien thoai) / man trong (~840-930 px, giao dien may tinh bang) - khung tu co gian khi gap / mo;
-     ban phim mo -> khung co lai (interactive-widget) de o nhap khong bi che; chua le tai tho / thanh he thong (safe-area) */
-  /* ban do tran toan man hinh (ca vung thanh trang thai / thanh vuot); le an toan duoc gui vao app de o tim kiem, nut khong bi che */
-  #app { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; display: block; background: var(--bg); }
-  #probe { position: fixed; left: 0; top: 0; visibility: hidden; pointer-events: none;
-           padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px); }
-  #sp { position: fixed; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
-        background: var(--bg); transition: opacity .3s; padding: 24px; box-sizing: border-box; text-align: center; }
-  #sp.off { opacity: 0; pointer-events: none; }
-  #sp img { width: 96px; height: 96px; border-radius: 22px; box-shadow: 0 2px 8px rgba(0,0,0,.15); }
-  #sp b { font-size: 20px; font-weight: 500; color: var(--ac); }
-  #spin { width: 26px; height: 26px; border: 3px solid #e3e3e3; border-top-color: var(--ac); border-radius: 50%; animation: s .8s linear infinite; }
-  @keyframes s { to { transform: rotate(360deg); } }
-  #msg { color: var(--mu); max-width: 360px; line-height: 1.5; }
-  #hp { position: fixed; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); z-index: 3; display: none;
-        background: #fff; border: 1px solid var(--ln); border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,.18); padding: 14px 16px;
-        max-width: 480px; margin: 0 auto; }
-  #hp.on { display: block; }
-  #hp p { margin: 0 0 10px; line-height: 1.45; color: var(--tx); }
-  #hp small { display: block; color: var(--mu); margin-bottom: 10px; line-height: 1.45; }
-  .row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
-  button { font: inherit; font-weight: 500; border-radius: 6px; padding: 9px 16px; min-height: 40px; cursor: pointer; }
-  .pri { background: var(--ac); color: #fff; border: 0; }
-  .sec { background: #fff; color: var(--ac); border: 1px solid var(--ln); }
-  #tt { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(80px + env(safe-area-inset-bottom)); z-index: 4; display: none;
-        background: #323232; color: #fff; padding: 10px 16px; border-radius: 6px; max-width: 86vw; }
+  html, body { margin: 0; height: 100%; background: #fff; color: #202124; font: 16px Roboto, system-ui, -apple-system, "Segoe UI", Arial, sans-serif; }
+  main { min-height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 24px; box-sizing: border-box; text-align: center; }
+  img { width: 96px; height: 96px; border-radius: 22px; }
+  h1 { font-size: 20px; font-weight: 500; margin: 0; color: #1a73e8; }
+  p { margin: 0; max-width: 420px; line-height: 1.5; color: #5f6368; }
+  a.btn { display: inline-block; background: #1a73e8; color: #fff; text-decoration: none; padding: 12px 22px; border-radius: 8px; font-weight: 500; }
+  code { color: #202124; }
 </style>
 </head>
 <body>
-<iframe id="app" title="KML/KMZ View"
-  allow="geolocation *; clipboard-read *; clipboard-write *; fullscreen *; web-share *; screen-wake-lock *"
-  referrerpolicy="strict-origin-when-cross-origin"></iframe>
-
-<div id="sp" aria-live="polite">
+<main>
   <img src="icon-192.png" alt="">
-  <b>KML/KMZ View</b>
-  <i id="spin"></i>
-  <div id="msg">Đang mở ứng dụng…</div>
-</div>
-
-<div id="hp" role="dialog" aria-label="Trợ giúp đăng nhập">
-  <p><b>Không thấy bản đồ?</b> Có thể máy chưa đăng nhập Google (tài khoản chủ bản đồ) hoặc mạng chậm.</p>
-  <small>Bấm “Đăng nhập Google”, đăng nhập rồi quay lại app — app tự tải lại. Nếu vẫn không được: Chrome › Cài đặt › Cài đặt trang web ›
-    Cookie của bên thứ ba › cho phép (hoặc thêm trang của app vào danh sách được phép).</small>
-  <div class="row">
-    <button class="sec" id="hpX">Đóng</button>
-    <button class="sec" id="hpR">Tải lại</button>
-    <button class="pri" id="hpL">Đăng nhập Google</button>
-  </div>
-</div>
-<div id="tt"></div>
-<div id="probe"></div>
-
+  <h1>KML/KMZ View đã chuyển sang địa chỉ mới</h1>
+  <p>Địa chỉ mới: <code>https://kmlview-manh.github.io</code><br>Hãy gỡ app cũ và cài lại từ địa chỉ mới (Chrome › ⋮ › Cài đặt ứng dụng).</p>
+  <a class="btn" href="https://kmlview-manh.github.io/">Mở KML/KMZ View</a>
+</main>
 <script>
-(() => {
-  // ====== CẤU HÌNH: link triển khai CHÍNH của KML/KMZ View (Apps Script). Sửa / triển khai app gốc -> app này tự dùng bản mới. ======
-  const APP_URL = 'https://script.google.com/macros/s/AKfycbzAChwllH6JJt5X9wxAeGdcOYiR4yIzDa38pLpyB4RxLed4NAJYhRPKJ3V67RmsSWxs/exec';
-  const SHELL_VER = '1.3.1';
-
-  const $ = id => document.getElementById(id);
-  const fr = $('app'), sp = $('sp'), hp = $('hp');
-  let appWin = null, appOrigin = '*', ready = false, helpT = 0, shareDone = false;
-
-  const toast = (t, ms) => { const e = $('tt'); e.textContent = t; e.style.display = 'block'; clearTimeout(toast.t); toast.t = setTimeout(() => e.style.display = 'none', ms || 3500); };
-  const hideSplash = () => sp.classList.add('off');
-  const help = on => { hp.classList.toggle('on', !!on); };
-
-  function load() {
-    ready = false; appWin = null; help(false); clearTimeout(helpT);
-    if (!navigator.onLine) { sp.classList.remove('off'); $('msg').textContent = 'Không có kết nối mạng. App sẽ tự mở khi có mạng trở lại.'; $('spin').style.display = 'none'; return; }
-    $('spin').style.display = ''; $('msg').textContent = 'Đang mở ứng dụng…';
-    fr.src = APP_URL + '?app=1&t=' + Date.now();
-    helpT = setTimeout(() => { if (!ready) { hideSplash(); help(true); } }, 30000);   // 30 s chưa thấy app báo "sẵn sàng" -> gợi ý đăng nhập
-  }
-  fr.addEventListener('load', () => setTimeout(hideSplash, 700));
-
-  // app (KML/KMZ View >= 10.9.0) báo đã khởi động xong -> giữ cửa sổ của app để gửi file chia sẻ vào
-  window.addEventListener('message', e => {
-    const d = e.data; if (!d || typeof d !== 'object' || typeof d.kx !== 'string') return;
-    if (!/^https:\/\/([a-z0-9-]+\.)*(googleusercontent\.com|google\.com)$/i.test(e.origin)) return;
-    if (d.kx === 'ready') { ready = true; appWin = e.source; appOrigin = e.origin; clearTimeout(helpT); help(false); hideSplash(); sendInsets(); sendShared(); deliver(); }
-    else if (d.kx === 'files-ok') toast(d.n ? `Đã mở ${d.n} file trong KML/KMZ View.` : 'Không mở được file chia sẻ.');
-  });
-
-  // giữ thanh giờ / pin phía trên (display standalone); phía dưới bản đồ tràn sau thanh vuốt nếu Chrome cho vẽ tràn cạnh (viewport-fit=cover)
-  document.addEventListener('fullscreenchange', () => setTimeout(sendInsets, 300));
-  // bản cũ (1.1.x) có thể đã xin toàn màn hình -> thoát ra để thanh giờ / pin luôn hiện
-  const unFull = () => { try { if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(() => {}); } catch (e) {} };
-  unFull(); document.addEventListener('visibilitychange', () => { if (!document.hidden) unFull(); });
-
-  // ---- lề an toàn (camera đục lỗ, thanh vuốt) -> app tự chừa cho ô tìm kiếm, nút
-  function sendInsets() {
-    if (!appWin) return;
-    const cs = getComputedStyle($('probe')), px = v => parseFloat(v) || 0;
-    const o = { kx: 'insets', t: px(cs.paddingTop), r: px(cs.paddingRight), b: px(cs.paddingBottom), l: px(cs.paddingLeft) };
-    try { appWin.postMessage(o, appOrigin); } catch (e) {}
-  }
-  addEventListener('resize', () => { clearTimeout(sendInsets.t); sendInsets.t = setTimeout(sendInsets, 150); });
-
-  // ---- file được "Chia sẻ" vào app (Android: Chia sẻ › KML/KMZ View): service worker giữ tạm, chờ app sẵn sàng rồi chuyển vào
-  // ---- file mở vào app: (1) Android "Chia sẻ" (service worker giữ tạm), (2) Windows/Mac "Mở bằng KML/KMZ View" (launchQueue)
-  //      -> chờ app báo sẵn sàng rồi chuyển một lượt vào app
-  let pend = [];
-  function deliver() {
-    if (!appWin || !pend.length) return;
-    const files = pend; pend = [];
-    try { appWin.postMessage({ kx: 'files', files }, appOrigin, files.map(f => f.buf)); toast(`Đang mở ${files.length} file…`, 2500); }
-    catch (e) { toast('Không chuyển được file vào app: ' + (e && e.message || e), 5000); }
-  }
-  async function sendShared() {
-    if (shareDone || !/[?&]share=/.test(location.search)) return;
-    shareDone = true;
-    try {
-      const c = await caches.open('kxapp-share'), ks = await c.keys();
-      for (const k of ks) { const r = await c.match(k); if (!r) continue; const buf = await r.arrayBuffer();
-        pend.push({ name: decodeURIComponent(r.headers.get('x-name') || 'file'), type: r.headers.get('content-type') || '', buf }); }
-      for (const k of ks) await c.delete(k);
-      if (!pend.length) toast('Không nhận được file nào.');
-    } catch (e) { toast('Không đọc được file chia sẻ: ' + (e && e.message || e), 5000); }
-    try { history.replaceState(null, '', location.pathname); } catch (e) {}
-    deliver();
-  }
-  if ('launchQueue' in window) launchQueue.setConsumer(async p => {     // Windows: nhấp đúp / chuột phải › Mở bằng KML/KMZ View
-    if (!p || !p.files || !p.files.length) return;
-    for (const h of p.files.slice(0, 20)) { try { const f = await h.getFile(); pend.push({ name: f.name, type: f.type || '', buf: await f.arrayBuffer() }); } catch (e) {} }
-    if (!appWin) toast('Đang mở app, file sẽ được nạp ngay khi app sẵn sàng…', 4000);
-    deliver();
-  });
-
-
-  $('hpX').onclick = () => help(false);
-  $('hpR').onclick = () => { sp.classList.remove('off'); load(); };
-  $('hpL').onclick = () => { window.open(APP_URL, '_blank'); };     // mở trang Google (đăng nhập), quay lại app thì tự tải lại
-  document.addEventListener('visibilitychange', () => { if (!document.hidden && !ready && hp.classList.contains('on')) { sp.classList.remove('off'); load(); } });
-  window.addEventListener('online', () => { if (!ready) load(); });
-
-  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
-  load();
-  window.__kxShell = SHELL_VER;
-})();
+  try { if ('serviceWorker' in navigator) navigator.serviceWorker.getRegistrations().then(rs => rs.forEach(r => r.unregister())); } catch (e) {}
 </script>
 </body>
 </html>
