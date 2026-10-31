@@ -1,0 +1,51 @@
+{
+  "id": "./",
+  "name": "DWG Edit",
+  "short_name": "DWG Edit",
+  "description": "View, measure and mark up AutoCAD drawings (DWG/DXF) — export KML to KML/KMZ View.",
+  "lang": "en",
+  "start_url": "./?src=pwa",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "categories": ["productivity", "utilities"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "file_handlers": [
+    {
+      "action": "./?open=1",
+      "accept": {
+        "image/vnd.dwg": [".dwg"],
+        "image/vnd.dxf": [".dxf"]
+      },
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192", "type": "image/png" }],
+      "launch_type": "single-client"
+    }
+  ],
+  "launch_handler": { "client_mode": ["focus-existing", "auto"] },
+  "share_target": {
+    "action": "./share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "files": [
+        {
+          "name": "files",
+          "accept": [
+            "image/vnd.dwg", "application/acad", "application/x-acad", "application/x-dwg", "application/dwg",
+            "image/vnd.dxf", "image/x-dxf", "application/dxf", "application/x-dxf",
+            "application/octet-stream", ".dwg", ".dxf"
+          ]
+        }
+      ]
+    }
+  }
+}
